@@ -1,7 +1,8 @@
-# Intelligent Trading Agent: An NLP-Driven Financial Analysis Platform
+# Intelligent Trading Agent: Predictive Analytics, Risk Management & Sentiment Analysis for Trading
+
 
 ## Overview
-This repository contains the source code and documentation for the Intelligent Trading Agent, a capstone project designed to integrate Natural Language Processing (NLP), , and financial PDF summarization,  web scraping, and predictive analytics to revolutionize decision-making in the Tunisian stock market. 
+This repository contains the source code and documentation for the Intelligent Trading Agent, a capstone project designed to integrate Natural Language Processing (NLP), , and financial PDF summarization,  web scraping, predictive analytics and Risk prediction to revolutionize decision-making in the Tunisian stock market. 
 
 The platform achieves:
 - Real-time financial news sentiment analysis.
