@@ -1,0 +1,44 @@
+fig2 = m.plot_components(forecast)
+    plt.savefig("components_plot.png")
+
+
+
+    def forecast_plotly(data, days):
+    data = data.rename(columns={"Date": "ds", "Close": "y"})
+
+    param_grid = {
+        'interval_width': [0.8, 0.9, 0.95],
+        'daily_seasonality': [True, False]
+    }
+
+    # GridSearch
+    best_mse = float('inf')
+    best_params = None
+    for params in ParameterGrid(param_grid):
+        m = Prophet(**params)
+        model = m.fit(data)
+        df_cv = cross_validation(model, initial='730 days', period='180 days', horizon='365 days')
+        df_metrics = performance_metrics(df_cv)
+        mse = df_metrics['mse'].mean()
+        if mse < best_mse:
+            best_mse = mse
+            best_params = params
+
+    # Train model with best hyperparameters
+    m = Prophet(**best_params)
+    model = m.fit(data)
+    future = m.make_future_dataframe(periods=days, freq='D')
+    forecast = m.predict(future)
+
+    # Plot
+    fig = go.Figure()
+    # Actual data
+    fig.add_trace(go.Scatter(x=data['ds'], y=data['y'], mode='lines', name='Actual'))
+    # Forecast
+    fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat'], mode='lines', name='Forecast'))
+    # Upper and lower bounds
+    fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat_upper'], mode='lines', fill=None, line=dict(color='rgba(0,100,80,0.2)'), name='Upper Bound'))
+    fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat_lower'], mode='lines', fill='tonexty', line=dict(color='rgba(0,100,80,0.2)'), name='Lower Bound'))
+    # Layout
+    fig.update_layout(title='Forecast', xaxis_title='Date', yaxis_title='Close Price')
+    return fig
