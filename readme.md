@@ -69,7 +69,7 @@ The platform achieves:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/username/intelligent-trading-agent.git
+   git clone [https://github.com/username/intelligent-trading-agent.git](https://github.com/ChaymaRhaiem/FinSent-AI-Driven-Financial-Sentiment-Market-Prediction.git
    cd intelligent-trading-agent
    ```
 
